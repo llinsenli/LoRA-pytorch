@@ -28,19 +28,19 @@ Fine-tuning entire models can be computationally expensive and prone to overfitt
 ## LoRA: Concept and Benefits
 
 ### How LoRA Works
-LoRA introduces a novel approach to fine-tuning by decomposing the original weight matrix \(W\) into two smaller matrices \(A\) and \(B\). Here's the mathematical model:
-- Assume \(W\) is a weight matrix in the model of dimensions \(d \times h\).
-- Instead of updating \(W\), LoRA freezes \(W\) and introduces matrices \(A\) of size \(d \times r\) and \(B\) of size \(r \times h\), where \(r\) is the rank and \(r \ll d, h\).
-- The effective update is \(W' = W + AB\), where \(AB\) represents the low-rank modification to \(W\).
+LoRA introduces a novel approach to fine-tuning by decomposing the original weight matrix $W$ into two smaller matrices $A$ and $B$. Here's the mathematical model:
+- Assume $W$ is a weight matrix in the model of dimensions $d \times h$.
+- Instead of updating $W$, LoRA freezes $W$ and introduces matrices $A$ of size $d \times r$ and $B$ of size $r \times h$, where $r$ is the rank and $r \ll d, h$.
+- The effective update is $W' = W + AB$, where $AB$ represents the low-rank modification to $W$.
 
 ### Benefits of Using LoRA
-- **Parameter Efficiency**: As \(r\) is much smaller than \(d\) and \(h\), \(A\) and \(B\) have significantly fewer parameters than \(W\), reducing the number of trainable parameters.
+- **Parameter Efficiency**: As $r$ is much smaller than $d$ and $h$, $A$ and $B$ have significantly fewer parameters than $W$, reducing the number of trainable parameters.
 - **Flexibility**: Allows for rapid adaptation to new tasks without the computational burden of retraining the entire model.
-- **Preservation of Pre-trained Dynamics**: By keeping \(W\) frozen, the original pre-trained dynamics are preserved, minimizing catastrophic forgetting.
+- **Preservation of Pre-trained Dynamics**: By keeping $W$ frozen, the original pre-trained dynamics are preserved, minimizing catastrophic forgetting.
 
 ### Principle Behind LoRA
-The foundational insight of LoRA is that many real-world data and the corresponding weights in deep models exhibit low-rank structures. This means that the effective information can be captured with fewer parameters than in the full matrix \(W\):
-- **Mathematical Justification**: If \(W\) can be approximated using Singular Value Decomposition (SVD) with a small number of singular values, then \(AB\) (with \(A\) and \(B\) representing the truncated SVD) can capture the essential transformations in \(W\) effectively.
+The foundational insight of LoRA is that many real-world data and the corresponding weights in deep models exhibit low-rank structures. This means that the effective information can be captured with fewer parameters than in the full matrix $W$:
+- **Mathematical Justification**: If $W$ can be approximated using Singular Value Decomposition (SVD) with a small number of singular values, then $AB$ (with $A$ and $B$ representing the truncated SVD) can capture the essential transformations in $W$ effectively.
 
 ## Implementation Example
 
